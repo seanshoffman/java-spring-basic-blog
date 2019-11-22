@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrint;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(print = MockMvcPrint.NONE)
 @PrepareForTest(BlogController.class)
 public class Module4_Tests {
 
@@ -139,9 +140,6 @@ public class Module4_Tests {
 
         assertTrue("Task 1: Anchor tags with class \"post-url\" do not exist.", linkElements.size()>0);
 
-        for (int i=0; i < linkElements.size(); i++)
-            System.out.println(linkElements.get(i).attr("href"));
-
         boolean anchorTagsExist = true;
         String url = "";
         String wanted = "";
@@ -193,7 +191,6 @@ public class Module4_Tests {
         assertNotNull(annotations);
         assertTrue("Task 3: There are no annotation on the postDetails() method.", annotations.length >= 1);
 
-        System.out.println("annotation = " + annotations[0].toString());
         assertTrue("Task 3: The @RequestMapping annotation doesn't have the value \"/post/{id}\".",
                 annotations[0].toString().contains("value={\"/post/{id}\"}"));
     }
